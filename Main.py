@@ -1,6 +1,5 @@
 import json
 import sys
-
 import requests
 import yaml
 
@@ -13,6 +12,7 @@ session = ""
 response_text = ""
 
 
+# parse and load yaml
 def parse():
     with open("test.yaml", 'r') as stream:
         try:
@@ -22,6 +22,7 @@ def parse():
             print(exc)
 
 
+# sends post to Alquist and return its response
 def send_post(url, text, context, state, session):
     payload = {'text': text, 'context': context, 'state': state, 'session': session}
     headers = {'content-type': 'application/json'}
@@ -47,7 +48,9 @@ def execute_test(loaded_yaml):
             print(response.json())
         # if it is Alquist's turn
         elif loaded_yaml[i]["agent"] == "alquist":
+            # check last response
             if not (loaded_yaml[i]["text"] == response_text):
+                # we founded mistake
                 print("Mistake in the node " + state)
                 break
         i += 1
