@@ -40,20 +40,23 @@ def execute_test(loaded_yaml):
             randomly_selected = select_random_input(loaded_yaml[i]["input"])
             # take text and transition
             text_to_send = randomly_selected["text"]
+            print(text_to_send)
             # take transition, if presented
-            if hasattr(randomly_selected, "transition"):
+            if 'transition' in randomly_selected:
                 i = randomly_selected["transition"] - 1
             response = send_post(url, text_to_send, context, state, session)
             save_info_from_response(response)
-            print(response.json())
+            print(response.json()["text"])
         # if it is Alquist's turn
         elif loaded_yaml[i]["agent"] == "alquist":
             # check last response
-            if not (loaded_yaml[i]["text"] == response_text):
+            if not (test_response_test(response_text, loaded_yaml[i]["text"])):
                 # we founded mistake
-                print("Mistake in the node " + state)
-                break
+                print(
+                    'There is mistake in the state ' + state + '. Response text "' + response_text + '" was unexpected.')
+                return False
         i += 1
+    return True
 
 
 # save context, state, session and response from Alquist's request
@@ -74,8 +77,20 @@ def select_random_input(inputs):
     return inputs[index]
 
 
+def test_response_test(response_text, text_from_yaml):
+    if isinstance(text_from_yaml, list):
+        for text in text_from_yaml:
+            if response_text == text:
+                return True
+        return False
+    else:
+        return response_text == text_from_yaml
+
+
 if __name__ == '__main__':
     # load yaml
     loaded_yaml = parse()
     # test the dialogue
-    execute_test(loaded_yaml)
+    result = execute_test(loaded_yaml)
+    if result == True:
+        print("Dialogue ended successfully")
