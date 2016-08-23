@@ -1,14 +1,11 @@
-import json
-import re
 import sys
-import requests
 import yaml
 
-from random import randint
-
-from Tester import Tester
+from tester import *
 
 url = sys.argv[1]
+file = sys.argv[2]
+number_of_testers = int(sys.argv[3])
 context = {}
 state = "init"
 session = ""
@@ -18,7 +15,7 @@ isUserTurn = True
 
 # parse and load yaml
 def parse():
-    with open("test.yaml", 'r') as stream:
+    with open(file, 'r') as stream:
         try:
             loaded_yaml = yaml.load(stream)
             return loaded_yaml
@@ -29,10 +26,11 @@ def parse():
 if __name__ == '__main__':
     # load yaml
     loaded_yaml = parse()
-    # test the dialogue
-    threads = [None] * 10
+    # create threads
+    threads = [None] * number_of_testers
     i = 0
+    # run each thread
     for thread in threads:
-        thread = Tester(url, loaded_yaml, "Tester" + str(i))
+        thread = Tester(url, loaded_yaml, i)
         thread.start()
         i += 1
