@@ -1,11 +1,12 @@
 # Alquist tester
-Testing utility for Alquist dialogue manager https://github.com/AlquistManager/alquist
+Testing utility for Alquist dialogue manager https://github.com/AlquistManager/alquist.
 Alquist tester tests dialogue, if it works as you expect. Multiple tests are run at once,
 and each test randomly select one possible branch of dialogue. This testing utility can be
 used as stress test, if you use high number of tests at once.
 
 ## Installation
 Install Python 3.
+
 Install PyYaml
     
     pip install PyYaml
@@ -16,6 +17,8 @@ Alquist tester gets three input parameters:
 - ``Test file`` Yaml test file, where is described functionality of dialogue.
 - ``Number of tests`` Number of test, which will be performed.
 
+Example:
+    
     py -3 http://127.0.0.1:5000/ tests\test.yaml 10
 
 ## Creating test file
