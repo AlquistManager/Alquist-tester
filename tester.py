@@ -58,7 +58,7 @@ class Tester(threading.Thread):
                 # check last response
                 loggers[self.number].debug(self.response_text[0], extra={'agent': "Alquist"})
                 if not (self.test_response_test(self.response_text[0], loaded_yaml[i]["output"])):
-                    # we founded mistake
+                    # we founded mistake, so log it
                     loggers[self.number].debug('There is mistake in the node "' + self.state + '".',
                                                extra={'agent': "Tester"})
                     loggers[self.number].debug('Expected: "' + str(loaded_yaml[i]["output"]) + '".',

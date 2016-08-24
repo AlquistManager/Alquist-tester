@@ -1,0 +1,53 @@
+# Testing for Demo dialogue
+0:
+  agent: "alquist"
+  output:
+    - "Hi, can I ask you a question?"
+1:
+  agent: "user"
+  input:
+    - text: "Yes"
+      transition: 2
+    - text: "No"
+      transition: 6
+    - text: "bla-bla-bla"
+      transition: 7
+2:
+  agent: "alquist"
+  output:
+    - "What is your favourite color?"
+3:
+  agent: "user"
+  input:
+    - text: "Blue"
+      transition: 4
+    - text: "Black"
+      transition: 4
+    - text: "Pink"
+      transition: 4
+    - text: "I don't know"
+      transition: 5
+    - text: "I dwdwdwd'wdwwtdknwwodwd"
+      transition: 5
+4:
+  agent: "alquist"
+  output:
+    - "Wow, {{blue, black, Pink}}, really? That is super cool."
+  transition: "return"
+5:
+  agent: "alquist"
+  output:
+    - "I don't think that is a color. Try another one?"
+  transition: 3
+6:
+  agent: "alquist"
+  output:
+    - "OK, bye"
+    - "I see, it was nice talking to you anyway"
+    - "Oh, that is a shame, bye then"
+  transition: "return"
+7:
+  agent: "alquist"
+  output:
+    - "Sorry, I don't understand, yes or no?"
+  transition: 1
