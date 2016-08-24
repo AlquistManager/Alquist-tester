@@ -19,7 +19,7 @@ Alquist tester gets three input parameters:
 
 Example:
     
-    py -3 http://127.0.0.1:5000/ tests\test.yaml 10
+    py -3 main.py http://127.0.0.1:5000/ tests\test.yaml 10
 
 ## Creating test file
 Example test file is in ``tests\test.yaml``. It is test for demo dialogue https://github.com/AlquistManager/alquist/tree/master/yaml/demo.
